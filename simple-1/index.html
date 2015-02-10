@@ -3,20 +3,34 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <title>Simple-1: WebRTC test</title>
   </head>
   <body>
     <div class="container">
       <div>
-	<h1>Connection</h1>
-	<p>This part creates data connection and uses STUN to get external ip.</p>
+        <h1>Connection</h1>
+        <p>This part creates data connection and uses STUN to get external ip.</p>
+        <form>
+          <div class="form-group">
+            <label for="txtLocalOffer">Copy this offer and send this to somebody to start.</label>
+            <textarea id="txtLocalOffer" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="txtRemoteOffer">Paste remote offer here to start.</label>
+            <textarea id="txtRemoteOffer" placeholder="---Paste remote offer here ---" class="form-control"></textarea>
+          </div>
+        </form>
       </div>
       <div>
-	<h1>Signaling</h1>
-	<p>This part exchanges "data connection" data to create connection between two points.
+        <h1>Signaling</h1>
+        <p>This part exchanges "data connection" data to create connection between two points.</p>
+      </div>
       <div>
-	<h1>Talk</h1>
-	<p>This part exchanges data directly.</p>
+        <h1>Talk</h1>
+        <p>This part exchanges data directly.</p>
       </div>
     </div>
+    <script src="../bower_components/adapter.js/src/js/adapter.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>
