@@ -3,6 +3,9 @@ txtRemoteOffer = document.querySelector 'textarea#txtRemoteOffer'
 txtLocalAnswer = document.querySelector 'textarea#txtLocalAnswer'
 txtRemoteAnswer = document.querySelector 'textarea#txtRemoteAnswer'
 
+btnCopyOffer = document.querySelector '#btnCopyOffer'
+btnCopyAnswer = document.querySelector '#btnCopyAnswer'
+
 dataConstraint = null
 servers =
   iceServers: [
@@ -32,8 +35,8 @@ events =
   onLocalOffer: (desc) ->
     txtLocalOffer.innerHTML = JSON.stringify desc
     window.localConnection.setLocalDescription desc
-  onRemoteOffer: (ev) ->
-    offer = ev.target.value
+  onRemoteOffer: () ->
+    offer = txtRemoteOffer.value
     desc = new RTCSessionDescription JSON.parse offer
     window.remoteConnection = new RTCPeerConnection servers, options
     window.remoteConnection.onicecandidate = events.onRemoteIce
@@ -42,8 +45,8 @@ events =
   onRemoteAnswer: (desc) ->
     txtLocalAnswer.innerHTML = JSON.stringify desc
     window.remoteConnection.setLocalDescription desc
-  onLocalAnswer: (ev) ->
-    offer = ev.target.value
+  onLocalAnswer: () ->
+    offer = txtLocalAnswer.value
     desc = new RTCSessionDescription JSON.parse offer
     window.localConnection.setRemoteDescription desc
   onLocalChannelOpen: (ev) ->
@@ -57,6 +60,16 @@ events =
 
 txtRemoteOffer.addEventListener "change", events.onRemoteOffer
 #txtRemoteAnswer.addEventListener "change", events.onRemoteAnswer
+
+btnCopyOffer.addEventListener "click", () ->
+  txtRemoteOffer.value = txtLocalOffer.innerHTML
+  events.onRemoteOffer()
+
+btnCopyAnswer.addEventListener "click", () ->
+  txtRemoteAnswer.value = txtLocalAnswer.innerHTML
+  events.onLocalAnswer()
+
+
 
 window.localConnection = null
 window.remoteConnection = null
